@@ -1,10 +1,10 @@
 class AppleMcp < Formula
   desc "Swift MCP server exposing macOS Calendar, Reminders, Contacts and Messages"
   homepage "https://github.com/gheydon/apple-mcp"
-  url "https://github.com/gheydon/apple-mcp/releases/download/v0.1.1/apple-mcp-0.1.1-macos.tar.gz"
-  sha256 "763f1270675df27bd86fcf6390c75bcd08db18226b0b95e2fc48464e640aa0be"
+  url "https://github.com/gheydon/apple-mcp/releases/download/v0.2.0/apple-mcp-0.2.0-macos.tar.gz"
+  sha256 "09966bde44fe442ca8eabc5c787bd5d9515232788cde02bb5c2e134690c0e696"
   license "GPL-2.0-only"
-  version "0.1.1"
+  version "0.2.0"
 
   depends_on macos: :sonoma
 
@@ -15,8 +15,16 @@ class AppleMcp < Formula
 
   def caveats
     <<~EOS
-      apple-mcp talks to macOS personal-data frameworks. On first use of
-      each tool group you will see a permission prompt:
+      To wire apple-mcp into your MCP host (Claude Desktop, Claude Code), run:
+
+        apple-mcp register
+
+      It detects the hosts you have installed, asks per-host before changing
+      anything, and backs up the existing config to <config>.bak. To remove
+      the entry later, run `apple-mcp unregister`.
+
+      Then restart your MCP host. On first use of each tool group macOS will
+      ask for the relevant permission:
 
         - Calendar     → Privacy & Security → Calendar
         - Reminders    → Privacy & Security → Reminders
@@ -24,8 +32,7 @@ class AppleMcp < Formula
         - Messages     → send: Automation → Messages
                          read: Full Disk Access on the host process
 
-      Wire it into your MCP host (Claude Desktop, etc.) by pointing the
-      "command" field at:
+      If you prefer to edit JSON by hand, point the "command" field at:
 
         #{opt_bin}/apple-mcp
     EOS
@@ -48,5 +55,8 @@ class AppleMcp < Formula
       assert_match "calendar_list_calendars", output
       assert_match "messages_send", output
     end
+
+    # The version subcommand should match the formula version
+    assert_match version.to_s, shell_output("#{bin}/apple-mcp version")
   end
 end
