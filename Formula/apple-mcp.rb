@@ -1,10 +1,10 @@
 class AppleMcp < Formula
-  desc "Swift MCP server exposing macOS Calendar, Reminders, Contacts and Messages"
+  desc "Swift MCP server exposing macOS Calendar, Reminders, Contacts, Photos and Messages"
   homepage "https://github.com/gheydon/apple-mcp"
-  url "https://github.com/gheydon/apple-mcp/releases/download/v0.2.0/apple-mcp-0.2.0-macos.tar.gz"
-  sha256 "09966bde44fe442ca8eabc5c787bd5d9515232788cde02bb5c2e134690c0e696"
+  url "https://github.com/gheydon/apple-mcp/releases/download/v0.3.0/apple-mcp-0.3.0-macos.tar.gz"
+  sha256 "59df2ad6136c92b17ca92c0615035f97b5e5080913bad18c9d4f8217cea01e0c"
   license "GPL-2.0-only"
-  version "0.2.0"
+  version "0.3.0"
 
   depends_on macos: :sonoma
 
@@ -29,6 +29,7 @@ class AppleMcp < Formula
         - Calendar     → Privacy & Security → Calendar
         - Reminders    → Privacy & Security → Reminders
         - Contacts     → Privacy & Security → Contacts
+        - Photos       → Privacy & Security → Photos
         - Messages     → send: Automation → Messages
                          read: Full Disk Access on the host process
 
